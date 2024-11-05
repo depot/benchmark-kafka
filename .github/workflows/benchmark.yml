@@ -1,0 +1,34 @@
+name: Benchmark
+on:
+  push: {}
+  workflow_dispatch: {}
+
+jobs:
+  build-with-remote-cache:
+    name: Automatic Remote Cache
+    runs-on: depot-ubuntu-24.04
+    defaults:
+      run:
+        working-directory: upstream
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: false
+
+  # build-without-cache:
+  #   name: Cacheless
+  #   runs-on: depot-ubuntu-24.04
+  #   defaults:
+  #     run:
+  #       working-directory: upstream
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         submodules: recursive
