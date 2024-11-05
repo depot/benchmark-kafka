@@ -18,17 +18,20 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
-      - uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: false
+      - run: ./gradlew --build-cache check -x test
 
-  # build-without-cache:
-  #   name: Cacheless
-  #   runs-on: depot-ubuntu-24.04
-  #   defaults:
-  #     run:
-  #       working-directory: upstream
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         submodules: recursive
+  build-without-cache:
+    name: Cacheless
+    runs-on: depot-ubuntu-24.04
+    defaults:
+      run:
+        working-directory: upstream
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - run: ./gradlew check -x test
