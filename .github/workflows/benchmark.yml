@@ -58,3 +58,22 @@ jobs:
           java-version: "21"
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
       - run: ./gradlew check -x test
+
+  github-cacheless:
+    name: Github Cacheless
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: upstream
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
+        with:
+          cache-disabled: true
+      - run: ./gradlew check -x test
