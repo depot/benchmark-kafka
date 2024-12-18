@@ -21,6 +21,9 @@ jobs:
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
         with:
           cache-disabled: true
+      - uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: false
       - run: ./gradlew --build-cache check -x test
 
   depot-cacheless:
