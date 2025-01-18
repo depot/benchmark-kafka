@@ -1,4 +1,4 @@
-name: Benchmark
+name: Benchmark - Build
 on:
   push: {}
   workflow_dispatch: {}
@@ -26,7 +26,7 @@ jobs:
           file: ~/.gradle/init.gradle
           old-string: "if (!settings.buildCache?.remote) {"
           new-string: "if (true) {"
-      - run: ./gradlew --build-cache --continue check
+      - run: ./gradlew --build-cache build
 
   depot-cacheless:
     name: Depot Cacheless
@@ -45,7 +45,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
         with:
           cache-disabled: true
-      - run: ./gradlew --continue check
+      - run: ./gradlew build
 
   github-local-cache:
     name: Github with Local Cache
@@ -62,9 +62,7 @@ jobs:
           distribution: "temurin"
           java-version: "21"
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
-        with:
-          cache-cleanup: always # We use --continue to force execution of all tasks
-      - run: ./gradlew --continue check
+      - run: ./gradlew build
 
   github-cacheless:
     name: Github Cacheless
@@ -83,4 +81,4 @@ jobs:
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
         with:
           cache-disabled: true
-      - run: ./gradlew --continue check
+      - run: ./gradlew build
