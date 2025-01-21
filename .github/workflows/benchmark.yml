@@ -64,7 +64,8 @@ jobs:
           distribution: "temurin"
           java-version: "21"
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
-      - run: ./gradlew --build-cache build -x test
+      # We set a constant commitId to make the cache key more stable
+      - run: ./gradlew --build-cache build -x test -PcommitId=xxxxxxxxxxxxxxxx
 
   github-cacheless:
     name: Github Cacheless
