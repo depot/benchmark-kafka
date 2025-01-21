@@ -53,6 +53,8 @@ jobs:
     defaults:
       run:
         working-directory: upstream
+    env:
+      GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
     steps:
       - uses: actions/checkout@v4
         with:
@@ -62,8 +64,6 @@ jobs:
           distribution: "temurin"
           java-version: "21"
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
-        with:
-          cache-cleanup: always # We use to force execution of all tasks
       - run: ./gradlew build -x test
 
   github-cacheless:
