@@ -26,7 +26,7 @@ jobs:
           file: ~/.gradle/init.gradle
           old-string: "if (!settings.buildCache?.remote) {"
           new-string: "if (true) {"
-      - run: ./gradlew --build-cache build --continue
+      - run: ./gradlew --build-cache build -x test
 
   depot-cacheless:
     name: Depot Cacheless
@@ -45,7 +45,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
         with:
           cache-disabled: true
-      - run: ./gradlew build --continue
+      - run: ./gradlew build -x test
 
   github-local-cache:
     name: Github with Local Cache
@@ -62,7 +62,7 @@ jobs:
           distribution: "temurin"
           java-version: "21"
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
-      - run: ./gradlew build --continue
+      - run: ./gradlew build -x test
 
   github-cacheless:
     name: Github Cacheless
@@ -81,4 +81,4 @@ jobs:
       - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
         with:
           cache-disabled: true
-      - run: ./gradlew build --continue
+      - run: ./gradlew build -x test
