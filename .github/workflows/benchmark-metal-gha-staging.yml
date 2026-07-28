@@ -3,8 +3,37 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  register:
-    if: ${{ false }}
-    runs-on: ubuntu-latest
+  depot-cacheless:
+    name: Depot Cacheless (${{ matrix.attempt }}, ${{ matrix.multiplier }}x)
+    runs-on: depot-ubuntu-24.04,connection=gha-staging
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        attempt:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+        multiplier: [1, 2, 3, 4, 5]
+    defaults:
+      run:
+        working-directory: upstream
     steps:
-      - run: "true"
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@d156388eb19639ec20ade50009f3d199ce1e2808 # v4.1.0
+        with:
+          cache-disabled: true
+      - run: ./gradlew build -x test
