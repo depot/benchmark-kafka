@@ -13,8 +13,8 @@ jobs:
         include:
           - target: production
             runner: depot-ubuntu-24.04
-          - target: staging
-            runner: depot-ubuntu-24.04,connection=gha-staging
+          - target: platformV2
+            runner: depot-ubuntu-24.04,connection=platformV2
     defaults:
       run:
         working-directory: upstream
@@ -34,7 +34,7 @@ jobs:
   depot-cacheless:
     name: Depot Cacheless (${{ matrix.attempt }}, ${{ matrix.multiplier }}x)
     needs: isolated
-    runs-on: depot-ubuntu-24.04,connection=gha-staging
+    runs-on: depot-ubuntu-24.04,connection=platformV2
     timeout-minutes: 15
     strategy:
       fail-fast: false
