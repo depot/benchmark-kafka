@@ -12,7 +12,7 @@ jobs:
       matrix:
         include:
           - target: production
-            runner: depot-ubuntu-24.04
+            runner: depot-ubuntu-24.04,connection=ghaec2
           - target: platformV2
             runner: depot-ubuntu-24.04,connection=platformV2
     defaults:
